@@ -19,8 +19,5 @@ module "eks" {
   min_size        = var.min_size
   instance_types  = var.instance_types
 }
-output "eks_cluster_endpoint" {
-  value = module.eks_cluster.cluster_endpoint
-}
 
 
