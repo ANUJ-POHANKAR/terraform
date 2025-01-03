@@ -12,6 +12,7 @@ module "eks" {
   source          = "./modules/eks"
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
+  vpc_id          = "vpc-1234556abcdef"
   subnets         = var.subnets
   node_group_name = var.node_group_name
   desired_size    = var.desired_size
