@@ -1,4 +1,4 @@
-resource "aws_eks_cluster" "this" {
+resource "aws_eks_cluster" "cluster" {
   name     = var.cluster_name
   version  = var.cluster_version
   vpc_config {
@@ -6,7 +6,7 @@ resource "aws_eks_cluster" "this" {
   }
 }
 
-resource "aws_eks_node_group" "this" {
+resource "aws_eks_node_group" "nodes" {
   cluster_name    = aws_eks_cluster.this.name
   node_group_name = var.node_group_name
 
