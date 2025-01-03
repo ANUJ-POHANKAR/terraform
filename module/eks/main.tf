@@ -3,7 +3,7 @@ resource "aws_eks_cluster" "cluster" {
   version  = var.cluster_version
   vpc_config {
     subnet_ids = var.subnets 
-    vpc_id     = "vpc-1234556abcdef"
+    vpc_id     = var.vpc.id
   }
 }
 
