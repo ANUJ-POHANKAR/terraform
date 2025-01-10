@@ -1,0 +1,23 @@
+region            = "ap-south-1"
+cluster_name      = "groot"
+cluster_version   = "1.25"
+vpc_id            = "vpc-0b02af2ced9ae8206"
+subnets           = ["subnet-093e3711de8fa49a5", "subnet-0b7981dd9f4c578a1"]
+node_group_name   = "nodes"
+desired_size      = 1
+max_size          = 1
+min_size          = 1
+instance_types    = ["t3.small"]
+node_role_arn     = "arn:aws:iam::545009857783:role/ec2-admin"
+cluster_role_arn  = "arn:aws:iam::545009857783:role/AmazonEKSAutoClusterRole"
+allocated_storage         = 20
+db_name                   = "MY_DB"
+engine                    = "mysql"
+engine_version            = "8.0"
+instance_class            = "db.t3.micro"
+username                  = "anuj"
+master_password           = "anuj#123"
+parameter_group_name      = "default.mysql8.0"
+publicly_accessible       = false
+skip_final_snapshot       = true
+
