@@ -1,0 +1,11 @@
+Terraform configuration
+/terraform
+  /modules
+    /eks
+    /rds
+    /cloudfront
+    /ecr
+    /s3-backend
+  main.tf
+  variables.tf
+  outputs.tf
