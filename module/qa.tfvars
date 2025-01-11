@@ -20,4 +20,4 @@ master_password           = "anuj#123"
 parameter_group_name      = "default.mysql8.0"
 publicly_accessible       = false
 skip_final_snapshot       = true
-
+bucket_name               = "tf-hosting"
