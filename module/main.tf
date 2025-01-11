@@ -40,4 +40,4 @@ module "rds" {
 module "cloudfront" {
   source      = "/home/ec2-user/terraform/module/cloudfront"
   bucket_name = var.bucket_name  
- 
+}
