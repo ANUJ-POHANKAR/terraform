@@ -24,4 +24,11 @@ output "rds_master_password" {
   sensitive   = true  # Mark it as sensitive to avoid exposure
 }
 
+output "cloudfront_domain_name" {
+  value = module.cloudfront.cloudfront_domain_name
+}
+
+output "s3_website_endpoint" {
+  value = module.cloudfront.website_endpoint
+}
 
