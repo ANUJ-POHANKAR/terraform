@@ -114,4 +114,9 @@ variable "publicly_accessible" {
 variable "skip_final_snapshot" {
   description = "Skip final DB snapshot before deletion."
   type        = bool
+} 
+
+variable "bucket_name" {
+  description = "Name of the S3 bucket for static website hosting."
+  type        = string
 }

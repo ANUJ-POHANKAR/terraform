@@ -37,3 +37,8 @@ module "rds" {
   publicly_accessible         = var.publicly_accessible
   skip_final_snapshot         = var.skip_final_snapshot
 }
+
+module "cloudfront" {
+  source      = "/home/ec2-user/terraform/module/cloudfront"
+  bucket_name = var.bucket_name  # Corrected this line
+}

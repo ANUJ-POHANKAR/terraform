@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('git checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'AnujPohankar', url: 'https://github.com/ANUJ-POHANKAR/terraform.git'
+            }
+        }
+        stage('tf plan ') {
+            steps {
+                sh '''cd module/
+                terraform init
+                terraform plan '''
+
+            }
+        }
+         stage('tf approve ') {
+            steps {
+                input message: 'Do you want to approve the deployment?', ok: 'Yes'
+                sh '''cd terraform/
+                terraform apply  -auto-approve '''
+
+            }
+        }
+        
+    }
+}
