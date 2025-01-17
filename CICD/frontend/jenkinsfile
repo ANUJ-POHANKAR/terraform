@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('checkout') {
+            steps {
+                git branch: '${GIT_BRANCH}', credentialsId: 'git_user', url: 'https://github.com/ANUJ-POHANKAR/angular-java.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh '''
+                sudo yum install -y nodejs npm
+                cd angular-frontend
+                sudo npm install -g @angular/cli@14.2.1
+                npm install
+                ng build 
+                '''
+            }
+        }
+        stage('deploy on s3') {
+            steps {
+              sh 'aws s3 cp --recursive angular-frontend/dist/angular-frontend/ s3://"${BUCKET_NAME}"/ '
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
+}
