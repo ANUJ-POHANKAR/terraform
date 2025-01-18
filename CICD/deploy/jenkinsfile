@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+
+    stages {
+        stage('checkout') {
+            steps {
+               git branch: "$BRANCH" , url: 'https://github.com/ANUJ-POHANKAR/kubenetes-cd.git'
+            }
+        }
+        stage('deploy') {
+            steps {
+                sh '''
+                curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.31.0/2024-09-12/bin/linux/amd64/kubectl
+                chmod +x ./kubectl
+                mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+                echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+
+                aws eks update-kubeconfig --region "$REGION" --name "$CLUSTER"
+
+                kubectl get po
+                kubectl apply -f dev/.
+                kubectl get po
+
+
+                '''
+            }
+        }
+    }
+}
