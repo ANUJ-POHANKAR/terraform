@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git Checkout') {
+            steps {
+                git(
+                    credentialsId: 'github-user', 
+                    url: 'https://github.com/Pritam-Khergade/student-ui.git'
+                )
+            }
+        }   
+
+        stage('Docker Stage') {
+            steps {
+                sh '''
+                    sudo yum update -y && sudo yum install docker -y
+                    sudo systemctl start docker
+                    sudo systemctl enable docker
+                    sudo docker build -t demo .
+                '''
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                sh '''
+                    echo "Scatter@123" | sudo docker login -u "anuj210" --password-stdin
+                    sudo docker tag demo anuj210/dock-repo:$BUILD_TIMESTAMP
+                    sudo docker push anuj210/dock-repo:$BUILD_TIMESTAMP
+                    sudo docker system prune -a -f
+                '''
+            }
+        }
+
+        stage('Manifest Checkout') {
+            steps {
+                withCredentials([gitUsernamePassword(credentialsId: 'github-user', gitToolName: 'Default')]) {
+                    script {
+                        sh '''
+                            if [ -d "kubenetes-cd" ]; then
+                                rm -rf kubenetes-cd
+                            fi
+                            git clone https://github.com/ANUJ-POHANKAR/kubenetes-cd.git
+                            cd kubenetes-cd
+                            git checkout main
+                            ls -al
+                            # Replace the full image URL with the correct format
+                            sed -i "s#image: 970653867674.dkr.ecr.ap-south-1.amazonaws.com/backend-image:.*#image: anuj210/dock-repo:$BUILD_TIMESTAMP#" dev/back.yaml
+                            git add .
+                            git commit -m "Update image tag to $BUILD_TIMESTAMP"
+                            git pull origin main
+                            git push origin main
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}
