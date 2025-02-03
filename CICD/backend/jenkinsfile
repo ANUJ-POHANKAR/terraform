@@ -6,7 +6,7 @@ pipeline {
             steps {
                 git(
                     credentialsId: 'github-user', 
-                    url: ''
+                    url: 'https://github.com/Pritam-Khergade/student-ui.git'
                 )
             }
         }   
