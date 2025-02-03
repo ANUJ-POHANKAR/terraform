@@ -6,7 +6,7 @@ pipeline {
             steps {
                 git(
                     credentialsId: 'github-user', 
-                    url: 'https://github.com/ANUJ-POHANKAR/book-page-1.git'
+                    url: ''
                 )
             }
         }   
